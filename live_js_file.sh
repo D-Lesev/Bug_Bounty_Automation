@@ -1,12 +1,20 @@
 #!/bin/bash
 
+cleanup() {
+  echo -e "\n\033[1;31m[!] Script Interrupted. Exiting...\033[0m"
+  exit 1
+}
+
+trap cleanup SIGINT
+
+
 if [ -z "$1" ] || [ -z "$2" ];  then
-    echo -e "\033[1;31m[-] Error! Usage: $0 example.com abc.example.com\033[0m"
+    echo -e "\033[1;31m[-] Error! Usage: $0 https://abcd.example.com 3\033[0m"
     exit 1
 fi
 
 
-gau "$1" | grep -E "^https://$2/.*\.js(\?.*)?$" | httpx -mc 200 > "live_js_$2"
+katana -u "$1" -jc -em js -fs fqdn -rl "$2" | httpx -mc 200 > "live_js_$(echo "$1" | sed 's|https\?://||')"
 
 
 echo -e "\n\033[38;5;10m[+] Done!\033[0m"
