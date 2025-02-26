@@ -12,18 +12,18 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+output="LinkAndSecret_Finder_JS.txt"
+
 
 while IFS= read -r line
 do
   echo -e "\n\n\033[1;32mRunning $line\033[0m"
   echo -e "\033[1;34m[+] Executing LinkFinder\033[0m"
-  linkfinder.py -i "$line" -o cli
+  linkfinder.py -i "$line" -o cli 2>&1
 
   echo -e "\033[1;34m[+] Executing SecretFinder\033[0m"
-  SecretFinder.py -i "$line" -o cli
-done < "$1"
+  SecretFinder.py -i "$line" -o cli 2>&1
+done < "$1" 2>&1 | tee -a "$output"
 
-echo -e "\n\n"
-echo -e "\033[1;33m[!!] DONE\033[0m"
-
-
+echo -e "\n\n" | tee -a "$output"
+echo -e "\033[1;33m[+] DONE\033[0m\n\0\033[1;33m[+] File output saved in\033[0m \033[38;5;28m'$output'\033[0m"
