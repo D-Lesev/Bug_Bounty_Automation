@@ -14,7 +14,7 @@ if [ -z "$1" ] || [ -z "$2" ];  then
 fi
 
 
-katana -u "$1" -jc -em js -fs fqdn -rl "$2" | httpx -mc 200 > "live_js_$(echo "$1" | sed 's|https\?://||')"
+katana -u "$1" -jc -em js -fs fqdn -rl "$2" | httpx -mc 200 > JS_files.txt
 
 
 echo -e "\n\033[38;5;10m[+] Done!\033[0m"
