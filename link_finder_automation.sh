@@ -7,12 +7,19 @@ cleanup() {
 
 trap cleanup SIGINT
 
+output="LinkAndSecret_Finder_JS.txt"
+
+
 if [ -z "$1" ]; then
   echo -e "\033[1;31mUsage: $0 <input_file>\033[0m"
   exit 1
 fi
 
-output="LinkAndSecret_Finder_JS.txt"
+
+if [ -f "$output" ]; then
+  rm "$output"
+  echo -e "\033[0;31m[!] Old file $output was deleted.\033[0m"
+fi
 
 
 while IFS= read -r line
