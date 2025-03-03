@@ -2,6 +2,26 @@
 
 import argparse
 import subprocess
+from colorama import Fore, Back, Style
+
+
+def init():
+
+    banner = r"""
+                 _______   _______    __________________  ___________________   ___  _______   ____       ____  __________  
+                /  __   \ /  __   \  /______   _____   / /______   ______   /  /  /  ______/  /  _ \     / __ \    ______/  
+               /  /_/   //  /__\  /        /  /    /  /        /  /     /  /__/  /  /___     /  / \ \   / / / /   /        
+              /  __    //  _   __/        /  /    /  /        /  /     /  ___   /  ____/    /  /  | |  / / / /   /  _______ 
+             /  /  /  //  / \  \         /  /    /  /        /  /     /  /  /  /  /        /  /  / /  / / / /   /  /____  /  
+            /  /  /  //  /   \  \       /  /    /  /        /  /     /  /  /  /  /_____   /  /__/ /  / /_/ /   /_______/ /  
+           /__/  /__//__/     \__\     /__/    /__/        /__/     /__/  /__/ _______/  /_______/   \____/ ___________ /  
+
+
+
+    """
+
+    print(Fore.RED,f"{banner}")
+
 
 
 
@@ -46,7 +66,7 @@ def run_fuzzing(txt,rate_numb,output_file):
 
 
             msg_1 = (f"\nChecking URL #{count} of total {count_urls}")
-            print(msg_1)
+            print(Fore.WHITE,msg_1)
             out_file.write(msg_1)
 
             msg_2 = (f"\nRunning wordlist of {current_wordlist} for URL -> {line.strip()}\n")
@@ -85,4 +105,6 @@ def main():
 
     print(f"\nResults saved to {output_file}")
 
+
+init()
 main()
